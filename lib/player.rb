@@ -5,26 +5,11 @@ class Player < ActiveRecord::Base
         Room.all.find_by(id==self.room_id)
     end
 
-    def search_furnishing
-        furnishings = current_room.furnishing                   
-          furnishing.each do |f|                             
-                Item.all.each do |i| 
-                    if i.grabbable_id == f.id
-                    i.update_attribute(:grabbable_id, self.id)
-                    i.update_attribute(:grabbable_type, self)
-                    end
-                end
-            end
-        end
-    end
-                
-            
     def available_rooms
-        options = Room.all.select {|r, v| r.proximal_room_id == self.room_id || r.id == (current_room.proximal_id - 1)}
+        options = Room.all.select {|r, v| r.proximal_room_id == self.room_id || r.id == (current_room.id - 1)}
         options
     end
 
-    # Add in error statements and edge cases 
     def move 
         puts "Where do you want to go?"
         available_rooms.each do |r|
@@ -40,6 +25,23 @@ class Player < ActiveRecord::Base
             self.room_id = chosen_room.id
         end
     end
+
+    def search_furnishing
+        furnishings = current_room.furnishings                   
+          furnishings.each do |f|                             
+                Item.all.each do |i| 
+                    if i.grabbable_id == f.id
+                    i.update_attribute(:grabbable_id, self.id)
+                    i.update_attribute(:grabbable_type, self)
+                    end
+                end
+            end
+        end
+    end
+                
+
+    # Add in error statements and edge cases 
+    
 
     #def win_statement
         #if self.find_by(name: "glove", name: "mask")
