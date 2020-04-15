@@ -9,4 +9,14 @@ player_name = gets.chomp
 
 puts "Thank you. Welcome to the game #{player_name}."
 
-puts "You're sitting at your desk."
+while win_condition =
+puts "You're sitting at your desk. The blinds are drawn.
+ It's dark and stuffy in here. What would you like to do?"
+
+input = gets.chomp
+
+if input.include? "window"
+    puts "You walk over to the window. You peek through the blinds.
+     A small flock of birds drops away from your windowsill and wheels
+    off into the blinding daylight. You feel"
+end
