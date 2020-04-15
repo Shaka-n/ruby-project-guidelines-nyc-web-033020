@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20200415134629) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string "name"
-    t.bigint "grabable_id"
-    t.string "grabbale_type"
-    t.index [nil, nil], name: "index_items_on_grabbable_type_and_grabbable_id"
+    t.string  "name"
+    t.integer "grabbable_id"
+    t.string  "grabbale_type"
+    t.index [nil, "grabbable_id"], name: "index_items_on_grabbable_type_and_grabbable_id"
   end
 
   create_table "players", force: :cascade do |t|
