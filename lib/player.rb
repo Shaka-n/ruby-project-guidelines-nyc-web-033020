@@ -12,10 +12,6 @@ class Player < ActiveRecord::Base
         end
     end
                 
-    
-    def self.move_character
-    
-    end
     def available_rooms
         current_room = Room.all.find(id == self.room_id)
         options = Room.all.select do |r|

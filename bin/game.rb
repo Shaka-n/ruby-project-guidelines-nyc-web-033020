@@ -11,8 +11,6 @@ puts "Thank you. Welcome to the game #{player_name}."
 
 puts "You're sitting at your desk."
 
-<<<<<<< HEAD
-=======
 input = gets.chomp
 
 if input.include? "window"
@@ -23,4 +21,3 @@ end
 
 
 
->>>>>>> 52295f4c189c0e0e05f9aee4da2ceddd6f59c3ad
