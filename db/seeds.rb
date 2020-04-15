@@ -16,8 +16,9 @@ room5 = Room.create(name:"Livingroom", proximal_room_id: 2)
 room6 = Room.create(name:"Kitchen", proximal_room_id: 5)
 room7 = Room.create(name:"Front Hallway", proximal_room_id: 5)
 room8 = Room.create(name:"Closet", proximal_room_id:7)
-room9 = Room.create(name:"Foyer", proximal_room_id:7)
-room10 = Room.create(name: "Basement", proximal_room_id: 8)
+room9 = Room.create(name: "Basement", proximal_room_id: 8)
+room10 = Room.create(name:"Foyer", proximal_room_id:7)
+
 
 furnishing1 = Furnishing.create(name:"Dresser",room_id: 4)
 furnishing2 = Furnishing.create(name:"Cupboard", room_id: 6)
