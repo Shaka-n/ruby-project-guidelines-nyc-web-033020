@@ -20,3 +20,6 @@ if input.include? "window"
      A small flock of birds drops away from your windowsill and wheels
     off into the blinding daylight. You feel"
 end
+
+
+
