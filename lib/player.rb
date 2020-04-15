@@ -2,21 +2,26 @@ class Player < ActiveRecord::Base
     has_many :items, as: :grabbable
 
     def search_furnishing
-        furnishings = self.room_id.furnishings                      
-          furnishing.map {|f| f.id}                                 
-            Item.all.each do |i| 
-                if i.grabbable_id = furnishing.id
-                i.grabbable_id.update(self.id)
+        furnishings = current_room.furnishing                   
+          furnishing.each do |f|                             
+                Item.all.each do |i| 
+                    if i.grabbable_id == f.id
+                    i.update_attribute(:grabbable_id, self.id)
+                    i.update_attribute(:grabbable_type, self)
+                    end
                 end
             end
         end
     end
+    
+
+    def current_room 
+        Room.all.find_by(id==self.room_id)
+    end
                 
+            
     def available_rooms
-        current_room = Room.all.find(id == self.room_id)
-        options = Room.all.select do |r|
-            r.proximal_room_id == self.room_id || r.id == (current_room.id - 1)
-        end
+        options = Room.all.select {|r, v| r.proximal_room_id == self.room_id || r.id == (current_room.proximal_id - 1)}
         options
     end
 
@@ -35,6 +40,11 @@ class Player < ActiveRecord::Base
         end
     end
 
-    #create visited rooms array
+    #def win_statement
+        #if self.find_by(name: "glove", name: "mask")
+            #puts "You found what you were looking for, would you like to go outside?"
+            #input = gets.chomp
 
-end
+            #if input = "yes"
+                #self.room_id = room10
+
