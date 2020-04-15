@@ -3,7 +3,7 @@ class Player < ActiveRecord::Base
 
     def search_furnishing
         furnishings = current_room.furnishing                   
-          furnishing.each do |f|                             
+          furnishings.each do |f|                             
                 Item.all.each do |i| 
                     if i.grabbable_id == f.id
                     i.update_attribute(:grabbable_id, self.id)
@@ -47,4 +47,3 @@ class Player < ActiveRecord::Base
 
             #if input = "yes"
                 #self.room_id = room10
-
