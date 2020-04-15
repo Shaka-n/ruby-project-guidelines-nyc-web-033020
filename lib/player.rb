@@ -10,17 +10,13 @@ class Player < ActiveRecord::Base
                 end
             end
         end
+
+    def current_room 
+        Room.all.find_by(id==self.room_id)
     end
-                
-    
-    def self.move_character
-    
-    end
+            
     def available_rooms
-        current_room = Room.all.find(id == self.room_id)
-        options = Room.all.select do |r|
-            r.proximal_room_id == self.room_id || r.id == (current_room.id - 1)
-        end
+        options = Room.all.select {|r, v| r.proximal_room_id == self.room_id || r.id == (current_room.proximal_id - 1)}
         options
     end
 
@@ -38,7 +34,5 @@ class Player < ActiveRecord::Base
             self.room_id = input
         end
     end
-
-    #create visited rooms array
 
 end
