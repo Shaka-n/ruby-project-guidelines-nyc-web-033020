@@ -11,3 +11,16 @@ puts "Thank you. Welcome to the game #{player_name}."
 
 puts "You're sitting at your desk."
 
+<<<<<<< HEAD
+=======
+input = gets.chomp
+
+if input.include? "window"
+    puts "You walk over to the window. You peek through the blinds.
+     A small flock of birds drops away from your windowsill and wheels
+    off into the blinding daylight. You feel"
+end
+
+
+
+>>>>>>> 52295f4c189c0e0e05f9aee4da2ceddd6f59c3ad
