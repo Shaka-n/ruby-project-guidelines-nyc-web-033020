@@ -10,16 +10,6 @@ class Player < ActiveRecord::Base
         options
     end
 
-    def current_furnishings
-        self.current_room.furnishings
-    end
-
-    def what_furnishings 
-        current_furnishings.each do |f|
-            puts "You see a #{f.name}."
-        end
-    end
-
     def move 
         puts "Where do you want to go?"
         available_rooms.each_with_index do |r, index|
@@ -35,24 +25,7 @@ class Player < ActiveRecord::Base
             self.room_id = chosen_room.id
         end
     end
-
-<<<<<<< HEAD
-#<<<<<<< HEAD
-    # def search_furnishing        
-    #     inside = current_furnishings.items.select  do |f| i.grabbable_id == f.id}      
-    #         if inside.size > 0
-    #             inside.each
-    #                 puts "You found #{i.name}"
-    #                 # i.update_attribute(:grabbable, self)
-    #         end
-    #                 if found = false
-    #                     puts "You didn't find anything."
-    #                 end
-                
-            
-    #     end
-    # end
-=======
+    
     def search_furnishing(furnishing)      
         inside = furnishing.items
         inside.each_with_index do |i, index|
@@ -105,9 +78,16 @@ class Player < ActiveRecord::Base
     # end
 
         # i.update_attribute(:grabbable, self)
->>>>>>> 98187e9d605e8d639c8698e076cb82522c509f14
 
-    
+    def current_furnishings
+        self.current_room.furnishings
+    end
+
+    def what_furnishings 
+        current_furnishings.each do |f|
+            puts "You see a #{f.name}."
+        end
+    end
 
     def open_door
         current_furnishings.each do |f|
