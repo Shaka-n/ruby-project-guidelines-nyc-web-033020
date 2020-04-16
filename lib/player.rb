@@ -48,6 +48,18 @@ class Player < ActiveRecord::Base
         end     
     end
 
+    def take_item(inside)
+        
+        if input == "yes"
+            inside[input].update_attribute(:grabbable, self)
+            puts "You put #{inside[input].name} in your pocket."
+        elsif input == "no"
+            puts "You decide to leave it where it is."
+        else 
+            puts "You didn't find anything."
+        end     
+    end
+
     def current_furnishings
         self.current_room.furnishings
     end
