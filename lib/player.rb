@@ -2,7 +2,7 @@ class Player < ActiveRecord::Base
     has_many :items, as: :grabbable
 
     def current_room 
-        Room.all.find_by(id==self.room_id)
+        Room.all.find(self.room_id)
     end
 
     def available_rooms
@@ -12,8 +12,8 @@ class Player < ActiveRecord::Base
 
     def move 
         puts "Where do you want to go?"
-        available_rooms.each do |r|
-            puts r.name
+        available_rooms.each_with_index do |r, index|
+            puts "#{index+1}. #{r.name}"
         end
         input = $stdin.gets.chomp.to_i
         input -= 1
