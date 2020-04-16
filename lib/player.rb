@@ -26,17 +26,31 @@ class Player < ActiveRecord::Base
         end
     end
 
-    def search_furnishing
-        furnishings = current_room.furnishings                   
-          furnishings.each do |f|                             
-                Item.all.each do |i| 
-                    if i.grabbable_id == f.id
-                    i.update_attribute(:grabbable_id, self.id)
-                    i.update_attribute(:grabbable_type, self)
+    def search_furnishing        
+        inside = current_furnishings.items.select  do |f| i.grabbable_id == f.id}      
+        if inside.size > 0
+            inside.each
+            puts "You found #{i.name}"
+                    # i.update_attribute(:grabbable, self)
                     end
-                end
-            end
+                    if found = false
+                        puts "You didn't find anything."
+                    end
+                
+            
         end
+
+    def current_furnishings
+        self.current_room.furnishings
+    end
+
+    def what_furnishings 
+        current_furnishings.each do |f|
+            puts "You see a #{f.name}."
+        end
+    end
+
+        
     end
                 
 
