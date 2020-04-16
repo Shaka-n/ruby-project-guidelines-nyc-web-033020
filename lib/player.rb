@@ -25,7 +25,7 @@ class Player < ActiveRecord::Base
             self.room_id = chosen_room.id
         end
     end
-    
+
     def search_furnishing(furnishing)      
         inside = furnishing.items
         if inside.size > 0
@@ -56,26 +56,9 @@ class Player < ActiveRecord::Base
         elsif input == "no"
             puts "You decide to leave it where it is."
         else 
-            puts "Please type in 'yes' or 'no'."
-        end
+            puts "You didn't find anything."
+        end     
     end
-
-    # def print_item_options(inside)
-    #     puts "What would you like to take? Please answer with the number keys."
-    #     str = "You found"
-    #     inside.each_with_index do |i, index|
-    #         if index.size == 1
-    #             str.concat(" a #{i.name}.")
-    #         elsif index == inside.size - 1
-    #             str.concat(" and a #{i.name}.")
-    #         else 
-    #             str.concat(" a #{i.name},")
-    #         end
-    #         puts str
-    #     end
-    # end
-
-        # i.update_attribute(:grabbable, self)
 
     def current_furnishings
         self.current_room.furnishings
@@ -89,21 +72,21 @@ class Player < ActiveRecord::Base
 
     def open_door
         current_furnishings.each do |f|
-            if f == furnishing10
-                puts "You can finally go outside safely!"
+            if f[:name] == "Front Door"
+                return "You can finally go outside safely!"
             end
         end
     end
 
     def win_statement
-        if self.find_by(name: "glove") 
-            puts "You found what you were looking for, you can finally go outside!"
-            while self.room_id != room10.room_id do
-                self.move
-                if self.room_id == room10.room_id
-                    self.open_door
-                end
-            end
+        itemsArr = []
+        self.items.each do |obj|
+            itemsArr << obj[:name]
+        end
+
+        if itemsArr.include?("Gloves") && itemsArr.include?("Mask")
+            puts "You are ready to go outside"
+            puts "Pleae make your way to the front door located in the Foyer"
         end
     end
 
