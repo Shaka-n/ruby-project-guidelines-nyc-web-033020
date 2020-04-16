@@ -2,6 +2,8 @@ require_relative '../config/environment'
 Room.delete_all
 Furnishing.delete_all
 Item.delete_all
+Player.delete_all
+
 room1 = Room.create(name:"Office")
 room2 = Room.create(name:"Front Hallway", proximal_room_id: room1.id)
 room3 = Room.create(name:"Bathroom", proximal_room_id: room2.id)
@@ -29,7 +31,7 @@ front_door = Furnishing.create(name: "Front Door", room_id: room10.id)
 item1 = Item.create(name:"Gloves", grabbable_id: desk.id, grabbable_type: "Furnishing")
 item2 = Item.create(name:"Mask", grabbable_id: medicine_cabinet.id, grabbable_type: "Furnishing")
 
-player1 = Player.create(name:"Player #1", room_id:room1.id)
+# player1 = Player.create(name:"Player #1", room_id:room1.id)
 #load game assets here
 win = false
 
@@ -59,8 +61,13 @@ while win == false
         player.move
     elsif input==2
         puts "You see:"
+        if player.current_furnishings.length == 0
+            puts "Nothing."
+            next
+        else
         player.current_furnishings.each_with_index do |f, index|
             puts "##{index+1} #{f.name}"
+            end
         end
         search = false
         while search ==false
@@ -75,9 +82,8 @@ while win == false
         end
     elsif input == 3
         puts "Inventory:"
-        player.items.each do |i|
-            puts i.name
-        end
+        items = player.items
+        items.each {|i|puts i.name}
         #player.win_statment
     else
         puts "Please choose from the 3 options above."
