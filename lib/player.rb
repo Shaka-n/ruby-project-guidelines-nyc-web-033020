@@ -26,6 +26,22 @@ class Player < ActiveRecord::Base
         end
     end
 
+<<<<<<< HEAD
+    # def search_furnishing        
+    #     inside = current_furnishings.items.select  do |f| i.grabbable_id == f.id}      
+    #         if inside.size > 0
+    #             inside.each
+    #                 puts "You found #{i.name}"
+    #                 # i.update_attribute(:grabbable, self)
+    #         end
+    #                 if found = false
+    #                     puts "You didn't find anything."
+    #                 end
+                
+            
+    #     end
+    # end
+=======
     def search_furnishing(furnishing)      
         inside = furnishing.items
         inside.each_with_index do |i, index|
@@ -78,6 +94,7 @@ class Player < ActiveRecord::Base
     # end
 
         # i.update_attribute(:grabbable, self)
+>>>>>>> a63da1863f573e0e7ecb4d70d93b2a4d5881ffb2
 
     def current_furnishings
         self.current_room.furnishings
@@ -89,18 +106,33 @@ class Player < ActiveRecord::Base
         end
     end
 
-        
+    def open_door
+        current_furnishings.each do |f|
+            if f == furnishing10
+                puts "You can finally go outside safely!"
+            end
+        end
     end
+
+    def win_statement
+        if self.find_by(name: "glove") 
+            puts "You found what you were looking for, you can finally go outside!"
+            # while self.room_id != room10.room_id do
+            #     self.move
+            #     if self.room_id == room10.room_id
+            #         self.open_door
+            #     end
+            # end
+        end
+    end
+
+end
+
+
                 
 
-    # Add in error statements and edge cases 
+     #Add in error statements and edge cases 
     
 
-    #def win_statement
-        #if self.find_by(name: "glove", name: "mask")
-            #puts "You found what you were looking for, would you like to go outside?"
-            #input = gets.chomp
 
-            #if input = "yes"
-                #self.room_id = room10
 
