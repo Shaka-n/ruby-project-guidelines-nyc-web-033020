@@ -20,12 +20,13 @@ class Player < ActiveRecord::Base
         if input > available_rooms.length || input < 0
             puts "Please choose from the available options."
         else
-            puts "You walk into the #{self.available_rooms[input-1].name}."
+            puts "You walk into the #{self.available_rooms[input].name}."
             chosen_room = self.available_rooms[input]
             self.room_id = chosen_room.id
         end
     end
 
+<<<<<<< HEAD
     # def search_furnishing        
     #     inside = current_furnishings.items.select  do |f| i.grabbable_id == f.id}      
     #         if inside.size > 0
@@ -40,6 +41,60 @@ class Player < ActiveRecord::Base
             
     #     end
     # end
+=======
+    def search_furnishing(furnishing)      
+        inside = furnishing.items
+        inside.each_with_index do |i, index|
+            if inside.size > 0
+                inside.each do |i|
+                puts "Item ##{i.index}"
+                puts "You found #{i.name}"     
+                puts "Would you like to take it? Enter 'yes' or 'no'."
+                input = $stdin.gets.chomp
+                    if input == "yes"
+                        i.update_attribute(:grabbable, self)
+                        puts "You put #{inside[input].name} in your pocket."
+                    elsif input == "no"
+                        puts "You decide to leave it where it is."
+                    else 
+                        puts "Please type in 'yes' or 'no'."
+                    end
+                end
+            else 
+                puts "You didn't find anything."
+            end
+        end     
+    end
+
+    def take_item(inside)
+        
+        if input == "yes"
+            inside[input].update_attribute(:grabbable, self)
+            puts "You put #{inside[input].name} in your pocket."
+        elsif input == "no"
+            puts "You decide to leave it where it is."
+        else 
+            puts "Please type in 'yes' or 'no'."
+        end
+    end
+
+    # def print_item_options(inside)
+    #     puts "What would you like to take? Please answer with the number keys."
+    #     str = "You found"
+    #     inside.each_with_index do |i, index|
+    #         if index.size == 1
+    #             str.concat(" a #{i.name}.")
+    #         elsif index == inside.size - 1
+    #             str.concat(" and a #{i.name}.")
+    #         else 
+    #             str.concat(" a #{i.name},")
+    #         end
+    #         puts str
+    #     end
+    # end
+
+        # i.update_attribute(:grabbable, self)
+>>>>>>> a63da1863f573e0e7ecb4d70d93b2a4d5881ffb2
 
     def current_furnishings
         self.current_room.furnishings

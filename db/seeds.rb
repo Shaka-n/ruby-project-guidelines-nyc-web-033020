@@ -1,10 +1,10 @@
 require_relative '../config/environment'
 
-#House.delete_all
-#Player.delete_all
-#Room.delete_all
-#Furnishing.delete_all
-#Item.delete_all
+House.delete_all
+Player.delete_all
+Room.delete_all
+Furnishing.delete_all
+Item.delete_all
 
 
 #house1 = House.create(name:"House #1")
@@ -34,7 +34,7 @@ furnishing8 = Furnishing.create(name:"Grandfather Clock", room_id: room5.id)
 furnishing9 = Furnishing.create(name: "Spooky Coffin", room_id: room10.id)
 furnishing10 = Furnishing.create(name: "Front Door", room_id: room9.id)
 
-item1 = Item.create(name:"Gloves", grabbable_id: 7, grabbable_type:"Furnishing")
-item2 = Item.create(name:"Mask", grabbable_id: 6, grabbable_type: "Furnishing")
+item1 = Item.create(name:"Gloves", grabbable_id: furnishing7.id, grabbable_type: "Furnishing")
+item2 = Item.create(name:"Mask", grabbable_id: furnishing6.id, grabbable_type: "Furnishing")
 
 player1 = Player.create(name:"Player #1", room_id:room1.id)
