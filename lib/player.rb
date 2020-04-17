@@ -23,6 +23,7 @@ class Player < ActiveRecord::Base
             puts "You walk into the #{self.available_rooms[input].name}."
             chosen_room = self.available_rooms[input]
             self.room_id = chosen_room.id
+            self.save
         end
     end
 
@@ -35,7 +36,8 @@ class Player < ActiveRecord::Base
                 puts "Would you like to take it? Enter 'yes' or 'no'."
                 input = $stdin.gets.chomp
                     if input == "yes"
-                        i.update_attribute(:grabbable, self)
+                        i.update(:grabbable_id => self.id, :grabbable_type => "Player")
+                         i.reload
                         puts "You put #{i.name} in your pocket."
                     elsif input == "no"
                         puts "You decide to leave it where it is."
@@ -87,6 +89,20 @@ class Player < ActiveRecord::Base
         if itemsArr.include?("Gloves") && itemsArr.include?("Mask")
             puts "You are ready to go outside"
             puts "Pleae make your way to the front door located in the Foyer"
+        end
+    end
+
+    def win_condition
+        if  self.items.first.name == "Gloves" && self.items.last.name == "Mask"
+            puts "You've found all of your PPE. Now you can safely go outside. Head for the front door."
+            # This method should have instructions on which items you need to find. It should also account for having other items that are not quest items
+            # unless self.gloves
+            #     puts "You still need to find the gloves."
+            # end
+            # unless self.mask
+            #     puts "You still need to find the mask."
+            # end
+            # if self.gloves && self.mask
         end
     end
 

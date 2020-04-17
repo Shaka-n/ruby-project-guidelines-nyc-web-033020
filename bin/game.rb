@@ -14,6 +14,7 @@ room7 = Room.create(name:"Front Hallway", proximal_room_id: room5.id)
 room8 = Room.create(name:"Closet", proximal_room_id: room7.id)
 room9 = Room.create(name: "Basement", proximal_room_id: room8.id)
 room10 = Room.create(name:"Foyer", proximal_room_id: room7.id)
+room11 = Room.create(name:"Outside", proximal_room_id: room10.id)
 
 
 dresser = Furnishing.create(name:"Dresser",room_id: room4.id)
@@ -50,8 +51,20 @@ player = Player.create(name:player_name, room_id:room1.id)
 puts "Thank you. Welcome to the game, #{player_name}."
 
 puts "You're sitting in your home office at your desk. It's a bit stuffy in here."
-
+turn_counter=0
 while win == false
+    if player.room_id == room11.id
+        puts "You've made it outside! 
+        
+        Ah, fresh air! Sunlight! How lovely! 
+        
+        Now you stay safe out there!
+        
+        Congratulations, You Won."
+        Score.create(name:player_name, score:turn_counter)
+        break
+    end
+    turn_counter += 1
     puts "You are standing in the #{player.current_room.name}. What would you like to do?
         1. Move
         2. Search Room
@@ -81,12 +94,15 @@ while win == false
             end
         end
     elsif input == 3
+        binding.pry
         puts "Inventory:"
         items = player.items
         items.each {|i|puts i.name}
-        #player.win_statment
+        player.win_condition
     else
         puts "Please choose from the 3 options above."
     end
 
 end
+
+puts Score.highscores
