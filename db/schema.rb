@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200415201130) do
+ActiveRecord::Schema.define(version: 20200417055007) do
 
   create_table "furnishings", force: :cascade do |t|
     t.string  "name"
@@ -31,12 +31,19 @@ ActiveRecord::Schema.define(version: 20200415201130) do
   create_table "players", force: :cascade do |t|
     t.string  "name"
     t.integer "room_id"
+    t.boolean "gloves"
+    t.boolean "mask"
   end
 
   create_table "rooms", force: :cascade do |t|
     t.string  "name"
     t.integer "proximal_room_id"
     t.index ["proximal_room_id"], name: "index_rooms_on_proximal_room_id"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.string  "name"
+    t.integer "score"
   end
 
 end

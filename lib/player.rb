@@ -31,34 +31,31 @@ class Player < ActiveRecord::Base
         if inside.size > 0
         inside.each_with_index do |i, index|
                 puts "Item ##{index}"
-                puts "You found #{i.name}"     
-                puts "Would you like to take it? Enter 'yes' or 'no'."
-                input = $stdin.gets.chomp
-                    if input == "yes"
-                        i.update_attribute(:grabbable, self)
-                        puts "You put #{i.name} in your pocket."
-                    elsif input == "no"
-                        puts "You decide to leave it where it is."
-                    else 
-                        puts "Please type in 'yes' or 'no'."
-                    end
+                puts "You found #{i.name}! You put it in your pocket."     
+                if i.name == "Gloves"
+                        self.gloves = true
+                elsif i.name = "Mask"
+                        self.mask = true
+                else
+                    puts "You're not sure what you'll do with that..."
+                end
             end
         else 
             puts "You didn't find anything."
         end     
     end
 
-    def take_item(inside)
+    # def take_item(inside)
         
-        if input == "yes"
-            inside[input].update_attribute(:grabbable, self)
-            puts "You put #{inside[input].name} in your pocket."
-        elsif input == "no"
-            puts "You decide to leave it where it is."
-        else 
-            puts "You didn't find anything."
-        end     
-    end
+    #     if input == "yes"
+    #         inside[input].update_attribute(:grabbable, self)
+    #         puts "You put #{inside[input].name} in your pocket."
+    #     elsif input == "no"
+    #         puts "You decide to leave it where it is."
+    #     else 
+    #         puts "You didn't find anything."
+    #     end     
+    # end
 
     def current_furnishings
         self.current_room.furnishings
@@ -78,15 +75,15 @@ class Player < ActiveRecord::Base
         end
     end
 
-    def win_statement
-        itemsArr = []
-        self.items.each do |obj|
-            itemsArr << obj[:name]
+    def win_condition
+        unless self.gloves
+            puts "You still need to find the gloves."
         end
-
-        if itemsArr.include?("Gloves") && itemsArr.include?("Mask")
-            puts "You are ready to go outside"
-            puts "Pleae make your way to the front door located in the Foyer"
+        unless self.mask
+            puts "You still need to find the mask."
+        end
+        if self.gloves && self.mask
+            puts "You've found all of your PPE. Now you can safely go outside. Head for the front door."
         end
     end
 
