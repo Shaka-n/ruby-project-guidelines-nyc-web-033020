@@ -5,7 +5,7 @@ Item.delete_all
 Player.delete_all
 
 room1 = Room.create(name:"Office")
-room2 = Room.create(name:"Front Hallway", proximal_room_id: room1.id)
+room2 = Room.create(name:"Back Hallway", proximal_room_id: room1.id)
 room3 = Room.create(name:"Bathroom", proximal_room_id: room2.id)
 room4 = Room.create(name:"Bedroom", proximal_room_id: room2.id)
 room5 = Room.create(name:"Livingroom", proximal_room_id: room2.id)
